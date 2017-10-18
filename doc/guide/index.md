@@ -1,7 +1,7 @@
 CubesViewer - OLAP Visual Viewer and Explore Tool
 =================================================
 
-[CubesViewer](https://github.com/jjmontesl/cubesviewer) is a visual, web-based tool application 
+[CubesViewer](https://github.com/jjmontesl/cubesviewer) is a visual, web-based tool application
 for exploring and analyzing OLAP databases served by the Cubes OLAP Framework.
 
 
@@ -10,17 +10,23 @@ CubesViewer Documentation
 
 **For developers and integrators**:
 
-* [Installing the full CubesViewer application](cubesviewer-gui-installation.md)
+* [Quick Start](cubesviewer-quickstart.md)
 * [Configuring your Cubes data model](cubesviewer-model.md)
-* [Integrating CubesViewer views in other web applications](cubesviewer-static.md)
+* [Installing CubesViewer Server](cubesviewer-server-installation.md)
+* [Integrating CubesViewer views in other web applications](cubesviewer-embed.md)
 
-* Extending/customizing CubesViewer - _to be done_
+**For end users**:
 
-**For final users**:
+* [CubesViewer User Guide](cubesviewer-user-main.md) - Work in progress
 
-* CubesViewer User Guide - _to be done_
+**Links**:
 
-**Main page**:
+* [CubesViewer Demo](http://jjmontesl.github.io/cubesviewer/)
+* [CubesViewer](https://github.com/jjmontesl/cubesviewer) at Github
+* [CubesViewer Server](https://github.com/jjmontesl/cubesviewer-server) at Github
 
-* [CubesViewer](https://github.com/jjmontesl/cubesviewer)
+
+Please see the README.md file for information on collaborating with CubesViewer project!
+
+![CubesViewer Chart Screenshot](https://raw.github.com/jjmontesl/cubesviewer/master/doc/screenshots/view-chart-1.png "CubesViewer Chart")
 

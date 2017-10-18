@@ -6,8 +6,8 @@
 # Packages
 *.egg
 *.egg-info
-dist
-#build
+#dist
+build
 eggs
 parts
 bin
@@ -15,8 +15,10 @@ var
 sdist
 develop-eggs
 .installed.cfg
-lib
-lib64
+#lib
+#lib64
+node_modules
+bower_components
 
 # Installer logs
 pip-log.txt
@@ -43,3 +45,13 @@ nosetests.xml
 #/ROADMAP
 
 #/virtualenv
+/env
+
+*.log
+*.pyc
+local_settings.py
+.idea
+*.DS_Store
+
+
+/dist

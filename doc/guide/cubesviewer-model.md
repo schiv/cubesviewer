@@ -7,11 +7,38 @@ CubesViewer model options
 Some of CubesViewer features rely on your model being correctly configured. This is required, for example,
 in order to identify date dimensions so CubesViewer knows which dimensions can be used by date filters.
 
+Remember to **restart your Cubes server after changing cube metadata** in order for the changes to be picked up.
+
+
 Labels
 ------
 
-Cubes supports the "label" attribute on every object. If available, CubesViewer will show this attribute
-when refering to Cubes, Dimensions, Hierarchies, Levels and other Cubes objects.
+Cubes supports the `label` attribute on every object. If available, CubesViewer will show this attribute
+when referring to Cubes, Dimensions, Hierarchies, Levels and other Cubes objects.
+
+
+Ordering
+--------
+
+When sorting data, CubesViewer will follow the `order_attribute` in your model definition if available.
+Cubes default order_attribute is the key, which is often not desired, therefore setting this parameter
+in your model is recommended.
+
+You can control ordering by setting the `order_attribute` for dimension levels in the model:
+
+```
+    "levels": [
+           {
+               "name":"month",
+               "label":"Month"
+               "role": "month",
+               'attributes': ['month', 'month_name']
+               "label_attribute": "month_name,
+               "order_attribute": "month",
+           },
+           ...
+```
+
 
 Date Filtering
 --------------
@@ -46,11 +73,16 @@ This is an example dimension "date_created" showing this configuration:
                    },
                    {
                        "name":"quarter",
-                       "label":"Quarter"
+                       "label":"Quarter",
+                       "role": "quarter"
                    },
                    {
                        "name":"month",
                        "label":"Month"
+                       "role": "month",
+                       "order_attribute": "month",
+                       "label_attribute": "month_name,
+                       'attributes': ['month', 'month_name']
                    },
                    {
                        "name":"week",
@@ -80,8 +112,11 @@ This is an example dimension "date_created" showing this configuration:
         ...
 ```
 
+
 Range Filtering
 ---------------
+
+**Note:** This feature is temporarily not available, but will be brought back soon.
 
 CubesViewer has a "Range Filter" option that shows a special cut filter for ranges. This can be applied
 to simple dimensions which *keys* are sortable.
@@ -112,22 +147,64 @@ This is an example dimension "year" showing this configuration:
         ...
 ```
 
-Ignored Dimensions
-------------------
 
-You can make CubesViewer ignore a dimension by adding a "cv-ignore" information key as shown
-in the example below. Ignored dimensions will not be shown by CubesViewer.
+Per-cube default configuration from Cubes model
+-----------------------------------------------
+
+Sometimes you may wish to define an initial default configuration for each cube.
+You can do so by adding a "cv-view-params" dictionary to the cube "info". This way
+you can, for example, hide some columns, apply a datefilter or show a chart view as
+a default for a given cube:
 
 ```
-    "dimensions": [
+        "name": "cube_name",
+        "info": {
+            "cv-view-params": {
+                "mode": "chart",
+                "xaxis": "date:quarter",
+                "yaxis": "record_count"
+            }
+        }
+        ...
+```
+
+
+Note that this settings won't apply if you are creating a view passing configuration
+parameters as JSON. This option impacts cube views created with no options (as you'd
+do when working from CubesViewer Studio, or when using the `viewService.createView()`
+API call with empty options).
+
+
+Measure Formatting
+------------------
+
+You can apply a formatting expression to your measures like shown in the
+example below.
+
+```
+    "measures": [
         {
-            "name": "company",
-            "label": "Company",
+            "label": "expense_total",
+            "name": "expense_total",
             "info": {
-                "cv-ignore": true
+              "cv-formatter": "Math.formatnumber(value, 2) + (value != undefined ? ' €' : '')"
             }
         },
         ...
 ```
 
+The `cv-formatter` value is a Javascript expression that returns a formatted
+string.
+
+You can use the `Math.formatnumber` function (added by CubesViewer) which
+formats a number the given number of decimal places and optional thousands
+separator.
+
+Remember to restart your Cubes server when changing cube metadata in order
+for the changes to be picked up.
+
+Further information
+-------------------
+
+* [Documentation index](index.md)
 
